@@ -70,22 +70,6 @@ REST API
 Веб-интерфейс
 Список вакансий: http://127.0.0.1:8000/vacancies/
 
-🗂️ Структура проекта
-
-text
-django-parser-mvp/
-├── config/                 # Конфигурация Django
-├── parser_app/            # Основное приложение
-│   ├── models.py          # Модели данных
-│   ├── views.py           # Представления
-│   ├── admin.py           # Административная панель
-│   ├── urls.py            # Маршруты
-│   ├── serializers.py     # Сериализаторы DRF
-│   ├── services/          # Бизнес-логика парсера
-│   └── templates/         # HTML шаблоны
-├── manage.py
-├── requirements.txt
-└── README.md
 🐛 Команды управления
 bash
 # Запуск парсинга всех активных задач
