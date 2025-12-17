@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vacancy.name }} - Job Parser{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">{{ vacancy.name }}</h4>
+                    <a href="{% url 'vacancy-list' %}" class="btn btn-outline-secondary btn-sm">
+                        Назад к списку
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5>{{ vacancy.company }}</h5>
+                    <div class="text-muted">
+                        <i class="bi bi-geo-alt"></i> {{ vacancy.area }}
+                    </div>
+                </div>
+                
+                {% if vacancy.salary %}
+                <div class="alert alert-success mb-4">
+                    <h5 class="alert-heading">Зарплата</h5>
+                    <p class="h4">{{ vacancy.salary }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <strong>Опыт работы:</strong><br>
+                            <span class="badge bg-primary fs-6">{{ vacancy.experience|default:"Не указан" }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Тип занятости:</strong><br>
+                            <span class="badge bg-secondary fs-6">{{ vacancy.employment|default:"Не указан" }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <strong>График работы:</strong><br>
+                            <span class="badge bg-info fs-6">{{ vacancy.schedule|default:"Не указан" }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Дата публикации:</strong><br>
+                            <span>{{ vacancy.published_at|date:"d.m.Y H:i" }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if vacancy.skills %}
+                <div class="mb-4">
+                    <h5>Требуемые навыки</h5>
+                    <div class="skills-list">
+                        {% for skill in vacancy.skills %}
+                        <span class="badge bg-warning text-dark fs-6 py-2 px-3">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if vacancy.description %}
+                <div class="mb-4">
+                    <h5>Описание вакансии</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            {{ vacancy.description|safe }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{{ vacancy.url }}" target="_blank" class="btn btn-primary btn-lg">
+                        Перейти к вакансии на сайте
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="row">
+                    <div class="col-md-6">
+                        <small>Задача парсинга: {{ vacancy.parse_task.name }}</small>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <small>Добавлено: {{ vacancy.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
